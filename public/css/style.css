@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+
+.main{
+    min-height: 90vh;
+}
+
+.delete-checkbox-div{
+    position: absolute;
+    left: 10px;
+    top: 5px;
+}
+.footer-section{
+   margin-top: auto;
+}
