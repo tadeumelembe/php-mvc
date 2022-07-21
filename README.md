@@ -1,2 +1,2 @@
-# php-mvc
-Very small/simple implementation of php-oop with mvc concept.
+# PHP-OOP-MVC
+An Implementation Of MVC Pattern On PHP-OOP
