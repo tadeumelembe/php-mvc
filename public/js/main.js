@@ -1,8 +1,18 @@
-
-$(':checkbox').change(function () {
+$(document).ready(function () {
     var arrChecked = [];
-    $('input:checkbox:checked').each(function() {
-        arrChecked.push($(this).val());
+
+    $(':checkbox').change(function () {
+        arrChecked = [];
+        $('input:checkbox:checked').each(function () {
+            arrChecked.push($(this).val());
+        });
+        console.log(arrChecked)
     });
-    console.log(arrChecked)
+
+    $("#delete-product-btn").click(function () {
+        console.log(arrChecked)
+        $("input:hidden").val(arrChecked);
+        $("#delete-products-form").submit();
+    });
+
 });
