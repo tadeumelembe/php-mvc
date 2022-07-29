@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 class App
 {
 
@@ -14,11 +16,15 @@ class App
         if (file_exists('../app/controllers/' . ucfirst($url[0]) . '.php')) {
            $this->controller = ucfirst($url[0]);
            unset($url[0]);
+        }else if(count($url)==1){
+            $url[1] = $url[0];
         }
 
-        require_once '../app/controllers/'. $this->controller .'.php';
+        //require_once '../app/controllers/'. $this->controller .'.php';
 
-        $this->controller = new $this->controller;
+        $class = "App\Controller\\" .  $this->controller;
+        
+        $this->controller = new $class;
 
         if(isset($url[1])){
             if(method_exists($this->controller, $url[1])){

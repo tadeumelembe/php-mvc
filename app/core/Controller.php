@@ -1,9 +1,12 @@
 <?php
 
+namespace App\Core;
+
 class Controller{
     public function model($model)
     {
-        require_once '../app/models/' . $model . '.php';
+        //  require_once '../app/models/' . $model . '.php';
+        $model = "App\Model\\" . $model;
         return new $model();
     }
 
