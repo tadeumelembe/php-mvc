@@ -24,133 +24,29 @@ class Product
         $this->db = new Database;
     }
 
-    // public static function construct($data, $sku, $price, $product_type, $size = '', $weight = '', $height = '', $length = '', $width = '')
     public static function construct($data)
     {
         $obj = new Product;
-        $obj->set_name($data['name']);
-        $obj->set_sku($data['sku']);
-        $obj->set_price($data['price']);
-        $obj->set_product_type($data['product_type']);
-        $obj->set_size($data['size']);
-        $obj->set_width($data['width']);
-        $obj->set_weight($data['weight']);
-        $obj->set_length($data['length']);
-        $obj->set_height($data['height']);
+        $obj->setName($data['name']);
+        $obj->setSku($data['sku']);
+        $obj->setPrice(doubleval($data['price']));
+        $obj->setProductType($data['productType']);
+        $obj->setSize(doubleval($data['size']));
+        $obj->setWidth(doubleval($data['width']));
+        $obj->setWeight(doubleval($data['weight']));
+        $obj->setLength(doubleval($data['length']));
+        $obj->setHeight(doubleval($data['height']));
         return $obj;
     }
 
-    //+++Getters and setters+++
 
-    public function get_id()
-    {
-        return $this->id;
-    }
-
-    public function set_id($id)
-    {
-        $this->id = $id;
-    }
-
-    public function get_name()
-    {
-        return $this->name;
-    }
-
-    public function set_name($name)
-    {
-        $this->name = $name;
-    }
-
-    public function get_sku()
-    {
-        return $this->sku;
-    }
-
-    public function set_sku($sku)
-    {
-        $this->sku = $sku;
-    }
-
-    public function get_price()
-    {
-        return $this->price;
-    }
-
-    public function set_price($price)
-    {
-        $this->price = $price;
-    }
-
-    public function get_product_type()
-    {
-        return $this->product_type;
-    }
-
-    public function set_product_type($product_type)
-    {
-        $this->product_type = $product_type;
-    }
-
-    public function get_size()
-    {
-        return $this->size;
-    }
-
-    public function set_size($size)
-    {
-        $this->size = $size;
-    }
-
-    public function get_weight()
-    {
-        return $this->weight;
-    }
-
-    public function set_weight($weight)
-    {
-        $this->weight = $weight;
-    }
-
-    public function get_width()
-    {
-        return $this->weight;
-    }
-
-    public function set_width($width)
-    {
-        $this->width = $width;
-    }
-
-    public function get_height()
-    {
-        return $this->height;
-    }
-
-    public function set_height($height)
-    {
-        $this->height = $height;
-    }
-
-    public function get_length()
-    {
-        return $this->length;
-    }
-
-    public function set_length($length)
-    {
-        $this->length = $length;
-    }
-    //++++++++++++++++
-
-
-    public function get_products()
+    public function getProducts()
     {
         $this->db->query('SELECT * FROM ' . $this->table);
         return $this->db->result_set();
     }
 
-    public function get_product_sku($sku)
+    public function getProductSku($sku)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE sku = :sku');
         $this->db->bind(':sku', $sku);
@@ -163,25 +59,12 @@ class Product
 
     public function create(Product $product)
     {
-
-        $className = 'app/models/Product'. $product->get_product_type();
-        $product_create = new $className;
-       die($className);
-
-
-        var_dump($product->get_product_type());
-        die;
-
-        // Execute
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        $className = 'App\Model\Product' . $product->getProductType();
+        return (new $className)->create($product);
     }
 
 
-    public function delete_products($ids)
+    public function deleteProducts($ids)
     {
         $this->db->query('DELETE FROM ' . $this->table . ' WHERE id IN (' . $ids . ')');
 
@@ -191,4 +74,108 @@ class Product
             return false;
         }
     }
+
+
+    //+++Getters and setters+++
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function SetId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    public function getProductType()
+    {
+        return $this->product_type;
+    }
+
+    public function setProductType($product_type)
+    {
+        $this->product_type = $product_type;
+    }
+
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
+
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    public function setWidth($width)
+    {
+        $this->width = $width;
+    }
+
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    public function setHeight($height)
+    {
+        $this->height = $height;
+    }
+
+    public function getLength()
+    {
+        return $this->length;
+    }
+
+    public function setLength($length)
+    {
+        $this->length = $length;
+    }
+    //++++++++++++++++
 }

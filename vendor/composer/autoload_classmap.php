@@ -12,6 +12,8 @@ return array(
     'App\\Core\\Controller' => $baseDir . '/app/core/Controller.php',
     'App\\Core\\Database' => $baseDir . '/app/core/Database.php',
     'App\\Model\\Product' => $baseDir . '/app/models/Product.php',
+    'App\\Model\\ProductBook' => $baseDir . '/app/models/ProductBook.php',
+    'App\\Model\\ProductDVD' => $baseDir . '/app/models/ProductDVD.php',
     'App\\Model\\ProductFurniture' => $baseDir . '/app/models/ProductFurniture.php',
     'App\\Model\\ProductType' => $baseDir . '/app/models/ProductType.php',
 );

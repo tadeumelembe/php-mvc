@@ -8,15 +8,20 @@ use App\Model\Product;
 class Products extends Controller
 {
     private $product_model;
-    
+
     public function __construct()
     {
         $this->product_model = $this->model('Product');
     }
 
-    public function index($name = '')
+    public function index()
     {
-        $products = $this->product_model->get_products();
+        $products = $this->product_model->getProducts();
+
+        foreach ($products as $product) {
+            $class = 'App\Model\Product' . $product->productType;
+            $product->displayType = (new $class)->getSize($product);
+        }
 
 
         $data = [
@@ -34,8 +39,7 @@ class Products extends Controller
 
     public function addproduct($name = '')
     {
-        $products = $this->product_model->get_products();
-
+        $products = $this->product_model->getProducts();
 
         $data = [
             'title' => 'Product List',
@@ -50,43 +54,25 @@ class Products extends Controller
         $this->view('template/footer');
     }
 
-    public function create($name = '')
+    public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW);
-            die('hello');
-            $new_product = $this->product_model::construct();
-            // return;
-
-            $check_if_exists = $this->product_model->get_product_sku($_POST['sku']);
+            
+            $new_product = Product::construct($_POST);
+            
+            $check_if_exists = $this->product_model->getProductSku($new_product->getSku());
             if ($check_if_exists)
-                return redirect('addproduct');
+                return redirect('products');
 
-            var_dump($check_if_exists);
-            die;
-            $product_ids = $_POST['product_ids'][0];
 
-            $result = $this->product_model->delete_products($product_ids);
-            redirect('products');
-            # code...
+            if ($this->product_model->create($new_product)) {
+                return redirect('products');
+            } else {
+                return redirect('products');
+            }
         } else {
-            $data = [
-                'name' => 'Arroz',
-                'price' => '123',
-                'product_type' => 'Furniture',
-                'sku' => '1d2as',
-                'height' => '12.3',
-                'length' => '45.8',
-                'width' => '48',
-                'size' => '',
-                'weight' => '',
-            ];
-            $new_product = Product::construct($data);
-            //$this->product_model->create($new_product);
-            $class_name = 'Product'.$new_product->get_product_type();
-            $this->model($class_name)->create($new_product);
-            die;
-            redirect('products');
+            return redirect('products');
         }
     }
 
@@ -99,11 +85,11 @@ class Products extends Controller
 
             $product_ids = $_POST['product_ids'][0];
 
-            $result = $this->product_model->delete_products($product_ids);
-            redirect('products');
+            $result = $this->product_model->deleteProducts($product_ids);
+            return redirect('products');
             # code...
         } else {
-            redirect('products');
+            return redirect('products');
         }
     }
 }

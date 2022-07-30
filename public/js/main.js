@@ -5,16 +5,30 @@ $(document).ready(function () {
 
     //Listen to product checkbox click (Mass Delete)
     var arrChecked = [];
-    $(':checkbox').change(function () {
-        arrChecked = [];
-        $('input:checkbox:checked').each(function () {
-            arrChecked.push($(this).val());
-        });
-        console.log(arrChecked)
-    });
+    // $(':checkbox').change(function () {
+    //     arrChecked = [];
+    //     $('input:checkbox:checked').each(function () {
+    //         arrChecked.push($(this).val());
+    //     });
+    //     console.log(arrChecked)
+    // });
 
-    //submit mass delete form
+    //mass delete function
     $("#delete-product-btn").click(function () {
+
+        checkboxes = $('.delete-checkbox');
+        for (i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked == true) {
+                if (!arrChecked.includes(checkboxes[i].defaultValue)) {
+                    arrChecked.push(checkboxes[i].defaultValue);
+                }
+            } else {
+                arrChecked = arrChecked.filter(a => a !== checkboxes[i].defaultValue);
+            }
+        }
+
+        if (arrChecked.length == 0)
+            return;
         $("input:hidden").val(arrChecked);
         $("#delete-products-form").submit();
     });
@@ -22,7 +36,7 @@ $(document).ready(function () {
     //type switcher
     $('#productType').change(function () {
         let product_type = $('#productType').val();
-        if (product_type == 1) {
+        if (product_type == 'DVD') {
             $('#size-form-section').show();
             $('#size').attr("required", true);
 
@@ -34,7 +48,7 @@ $(document).ready(function () {
             $('#length').attr("required", false);
             $('#width').attr("required", false);
 
-        } else if (product_type == 2) {
+        } else if (product_type == 'Book') {
             $('#size-form-section').hide();
             $('#size').attr("required", false);
 
@@ -45,7 +59,7 @@ $(document).ready(function () {
             $('#height').attr("required", false);
             $('#length').attr("required", false);
             $('#width').attr("required", false);
-        } else if (product_type == 3) {
+        } else if (product_type == 'Furniture') {
             $('#size-form-section').hide();
             $('#size').attr("required", false);
 
@@ -77,7 +91,7 @@ $(document).ready(function () {
                 },
                 productType: {
                     required: true,
-                    number: true
+                    number: false
                 },
                 price: {
                     required: true,
@@ -105,9 +119,11 @@ $(document).ready(function () {
                 },
             }
         });
-
         if (product_form.valid()) {
+            console.log('hello')
+
             product_form.submit();
+            return;
         } else {
             return
         }

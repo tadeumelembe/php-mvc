@@ -4,7 +4,7 @@ namespace App\Model;
 
 use App\Core\Database;
 
-class ProductFurniture extends ProductType
+class ProductDVD extends ProductType
 {
     public function __construct()
     {
@@ -14,15 +14,13 @@ class ProductFurniture extends ProductType
     public function create(Product $product)
     {
 
-        $this->db->query('INSERT INTO products (`name`, sku, price, productType, height, `length`, width) VALUES(:name, :sku, :price, :productType, :height, :length, :width)');
+        $this->db->query('INSERT INTO products (`name`, sku, price, productType, size) VALUES(:name, :sku, :price, :productType, :size)');
         // Bind values
         $this->db->bind(':name', $product->getName());
         $this->db->bind(':sku', $product->getSku());
         $this->db->bind(':price', $product->getPrice());
         $this->db->bind(':productType', $product->getProductType());
-        $this->db->bind(':height', $product->getHeight());
-        $this->db->bind(':length', $product->getLength());
-        $this->db->bind(':width', $product->getWidth());
+        $this->db->bind(':size', $product->getSize());
 
         // Execute
         if ($this->db->execute()) {
@@ -32,8 +30,10 @@ class ProductFurniture extends ProductType
         }
     }
 
+
     public function getSize($product)
     {
-        return 'Dimensions: ' .$product->height . 'x' . $product->width . 'x' . $product->length;
+        return 'Size: ' . $product->size . ' MB';
+      
     }
 }

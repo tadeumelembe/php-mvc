@@ -1,7 +1,7 @@
 <div class="main">
     <?php require APPROOT . '/views/template/head.php' ?>
     <div class="row">
-        <form id="product_form" action="<?= BASEURL ?>products/new" method="post" class="col-12 col-lg-6">
+        <form id="product_form" action="<?= BASEURL ?>products/create" method="post" class="col-12 col-lg-6">
             <div class="row mb-3 align-items-center">
                 <div class="col-12 col-md-3">
                     <label for="sku" class="col-form-label">SKU</label>
@@ -15,7 +15,7 @@
                     <label for="name" class="col-form-label">Name</label>
                 </div>
                 <div class="col-12 col-md-9">
-                    <input type="text" id="name"  name="name" class="form-control" aria-describedby="passwordHelpInline">
+                    <input type="text" id="name" name="name" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
             </div>
             <div class="row mb-3 align-items-center">
@@ -33,9 +33,9 @@
                 <div class="col-12 col-md-9">
                     <select id="productType" name="productType" class="form-select" aria-label="Default select example">
                         <option selected disabled>Select the product type</option>
-                        <option value="1">DVD</option>
-                        <option value="2">Book</option>
-                        <option value="3">Furniture</option>
+                        <option value="DVD">DVD</option>
+                        <option value="Book">Book</option>
+                        <option value="Furniture">Furniture</option>
                     </select>
                 </div>
             </div>
