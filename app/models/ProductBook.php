@@ -29,6 +29,10 @@ class ProductBook extends ProductType
 
     public function getSize($product)
     {
-        return 'Weight: ' . $product->weight . ' kg';
+        $this->db->query('SELECT `weight` FROM product_book WHERE product_id = :product_id');
+        $this->db->bind(':product_id', $product->id);
+        $result = $this->db->single();
+        
+        return 'Weight: ' . floatval($result->weight) . ' kg';
     }
 }

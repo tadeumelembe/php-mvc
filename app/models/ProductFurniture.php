@@ -31,6 +31,10 @@ class ProductFurniture extends ProductType
 
     public function getSize($product)
     {
-        return 'Dimensions: ' .$product->height . 'x' . $product->width . 'x' . $product->length;
+        $this->db->query('SELECT height, `length`, width FROM product_furniture WHERE product_id = :product_id');
+        $this->db->bind(':product_id', $product->id);
+        $result = $this->db->single();
+        return 'Dimensions: ' .$result->height . 'x' . $result->width . 'x' . $result->length;
+
     }
 }
