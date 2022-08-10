@@ -59,8 +59,20 @@ class Product
 
     public function create(Product $product)
     {
-        $className = 'App\Model\Product' . $product->getProductType();
-        return (new $className)->create($product);
+        $this->db->query('INSERT INTO products (`name`, sku, price, productType) VALUES(:name, :sku, :price, :productType)');
+        // Bind values
+        $this->db->bind(':name', $product->getName());
+        $this->db->bind(':sku', $product->getSku());
+        $this->db->bind(':price', $product->getPrice());
+        $this->db->bind(':productType', $product->getProductType());
+
+        if ($this->db->execute()) {
+            die($this->db->lastInsertId());
+            $className = 'App\Model\Product' . $product->getProductType();
+            return (new $className)->create($product, $this->db->lastInsertId());
+        } else {
+            return false;
+        }
     }
 
 

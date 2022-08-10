@@ -117,7 +117,10 @@ $(document).ready(function () {
                     //required: true,
                     number: true
                 },
-            }
+            },
+            messages: {
+                  required: "We need your email address to contact you",
+              }
         });
         if (product_form.valid()) {
             console.log('hello')
