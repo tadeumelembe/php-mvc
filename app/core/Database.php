@@ -32,6 +32,10 @@ class Database
         $this->stmt = $this->dbh->prepare($sql);
     }
 
+    public function lastInsertId(){
+      return $this->dbh->lastInsertId();
+  }
+
      // Bind values
      public function bind($param, $value, $type = null){
         if(is_null($type)){

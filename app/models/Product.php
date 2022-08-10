@@ -67,7 +67,6 @@ class Product
         $this->db->bind(':productType', $product->getProductType());
 
         if ($this->db->execute()) {
-            die($this->db->lastInsertId());
             $className = 'App\Model\Product' . $product->getProductType();
             return (new $className)->create($product, $this->db->lastInsertId());
         } else {
