@@ -30,7 +30,10 @@ class ProductDVD extends ProductType
 
     public function getSize($product)
     {
-        return 'Size: ' . $product->size . ' MB';
-      
+        $this->db->query('SELECT size FROM product_dvd WHERE product_id = :product_id');
+        $this->db->bind(':product_id', $product->id);
+        $result = $this->db->single();
+        
+        return 'Size: ' . $result->size . ' MB';
     }
 }

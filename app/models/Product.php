@@ -66,9 +66,22 @@ class Product
         $this->db->bind(':price', $product->getPrice());
         $this->db->bind(':productType', $product->getProductType());
 
+
+        // try {
+        //     $this->db->beginTransaction();
+        //     $this->db->execute();
+        //     $this->db->commit();
+        //     $this->db->rollBack();
+        //     return true;
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        //     return false;
+        // }
         if ($this->db->execute()) {
             $className = 'App\Model\Product' . $product->getProductType();
-            return (new $className)->create($product, $this->db->lastInsertId());
+            $result = (new $className)->create($product, $this->db->lastInsertId());
+            return $result;
+
         } else {
             return false;
         }
