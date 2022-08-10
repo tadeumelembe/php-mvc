@@ -26,6 +26,7 @@ class ComposerStaticInitdc6018ba482f15affa606d1c18ee2694
         'App\\Core\\App' => __DIR__ . '/../..' . '/app/core/App.php',
         'App\\Core\\Controller' => __DIR__ . '/../..' . '/app/core/Controller.php',
         'App\\Core\\Database' => __DIR__ . '/../..' . '/app/core/Database.php',
+        'App\\Helpers\\Flasher' => __DIR__ . '/../..' . '/app/helpers/Flasher.php',
         'App\\Model\\Product' => __DIR__ . '/../..' . '/app/models/Product.php',
         'App\\Model\\ProductBook' => __DIR__ . '/../..' . '/app/models/ProductBook.php',
         'App\\Model\\ProductDVD' => __DIR__ . '/../..' . '/app/models/ProductDVD.php',

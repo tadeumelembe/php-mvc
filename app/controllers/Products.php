@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Controller;
 use App\Model\Product;
+use App\Helpers\Flasher;
 
 class Products extends Controller
 {
@@ -58,12 +59,14 @@ class Products extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW);
-            
+
             $new_product = Product::construct($_POST);
-            
+
             $check_if_exists = $this->product_model->getProductSku($new_product->getSku());
-            if ($check_if_exists)
-                return redirect('products');
+            if ($check_if_exists) {
+                Flasher::set_flash('Sku already exists', 'danger');
+                return redirect('addproduct');
+            }
 
 
             if ($this->product_model->create($new_product)) {

@@ -11,6 +11,7 @@ return array(
     'App\\Core\\App' => $baseDir . '/app/core/App.php',
     'App\\Core\\Controller' => $baseDir . '/app/core/Controller.php',
     'App\\Core\\Database' => $baseDir . '/app/core/Database.php',
+    'App\\Helpers\\Flasher' => $baseDir . '/app/helpers/Flasher.php',
     'App\\Model\\Product' => $baseDir . '/app/models/Product.php',
     'App\\Model\\ProductBook' => $baseDir . '/app/models/ProductBook.php',
     'App\\Model\\ProductDVD' => $baseDir . '/app/models/ProductDVD.php',

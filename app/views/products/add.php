@@ -1,6 +1,10 @@
 <div class="main">
     <?php require APPROOT . '/views/template/head.php' ?>
+    
+
     <div class="row">
+    <?php App\Helpers\Flasher::flash() ?>
+
         <form id="product_form" action="<?= BASEURL ?>products/create" method="post" class="col-12 col-lg-6">
             <div class="row mb-3 align-items-center">
                 <div class="col-12 col-md-3">
