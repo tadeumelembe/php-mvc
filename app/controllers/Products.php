@@ -24,7 +24,6 @@ class Products extends Controller
             $product->displayType = (new $class)->getSize($product);
         }
 
-
         $data = [
             'title' => 'Product List',
             'page_tite' => 'Product List',
